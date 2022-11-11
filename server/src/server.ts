@@ -1,6 +1,8 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import { PrismaClient } from '@prisma/client';
+import z from 'zod';
+import ShortUniqueId from 'short-unique-id';
 
 const prisma = new PrismaClient({
   log: ['query'],
@@ -20,6 +22,39 @@ async function bootstrap() {
 
     return { count };
   });
+
+  fastify.post('/pools', async (request, reply) => {
+    const createPoolBody = z.object({
+      title: z.string(),
+    });
+
+    const uniqueIdGenerator = new ShortUniqueId({ length: 6 });
+    const poolCode = String(uniqueIdGenerator()).toUpperCase();
+
+    const { title } = createPoolBody.parse(request.body);
+
+    await prisma.pool.create({
+      data: {
+        title,
+        code: poolCode,
+      },
+    });
+
+    return reply.status(201).send({ code: poolCode });
+  });
+
+  fastify.get('/users/count', async () => {
+    const count = await prisma.user.count();
+
+    return { count };
+  });
+
+  fastify.get('/guesses/count', async () => {
+    const count = await prisma.guess.count();
+
+    return { count };
+  });
+
 
   fastify.listen({ port: 3333, host: '0.0.0.0' });
 }
