@@ -1,6 +1,9 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import jwt from '@fastify/jwt';
+import 'dotenv/config';
+
+import { env } from './config/env';
 
 import { authRoutes } from './routes/auth';
 import { guessRoutes } from './routes/guess';
@@ -17,7 +20,7 @@ async function bootstrap() {
   });
 
   await fastify.register(jwt, {
-    secret: 'JWT_SECRET_KEY',
+    secret: env.JWT_SECRET_KEY,
   });
 
   await fastify.register(authRoutes);
@@ -25,7 +28,7 @@ async function bootstrap() {
   await fastify.register(poolRoutes);
   await fastify.register(userRoutes);
 
-  fastify.listen({ port: 3333, host: '0.0.0.0' });
+  fastify.listen({ port: env.PORT || 3333, host: '0.0.0.0' });
 }
 
 bootstrap();
