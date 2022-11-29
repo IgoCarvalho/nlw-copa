@@ -8,6 +8,7 @@ async function main() {
       name: 'Blue Pen',
       email: 'blue@email.com',
       avatarUrl: 'https://github.com/igocarvalho.png',
+      googleId: 'c9m1208mcc3m50.v4.cx0820j59c8j',
     },
   });
 
