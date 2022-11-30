@@ -9,6 +9,7 @@ import { authRoutes } from './routes/auth';
 import { guessRoutes } from './routes/guess';
 import { poolRoutes } from './routes/pool';
 import { userRoutes } from './routes/user';
+import { gameRoutes } from './routes/game';
 
 async function bootstrap() {
   const fastify = Fastify({
@@ -24,6 +25,7 @@ async function bootstrap() {
   });
 
   await fastify.register(authRoutes);
+  await fastify.register(gameRoutes);
   await fastify.register(guessRoutes);
   await fastify.register(poolRoutes);
   await fastify.register(userRoutes);
