@@ -7,9 +7,17 @@ interface Props {
   code: string;
   position: 'left' | 'right';
   onChangeText: (value: string) => void;
+  teamPoints?: number;
+  hasGuess: boolean;
 }
 
-export function Team({ code, position, onChangeText }: Props) {
+export function Team({
+  code,
+  position,
+  onChangeText,
+  hasGuess,
+  teamPoints,
+}: Props) {
   return (
     <HStack alignItems="center">
       {position === 'left' && (
@@ -19,10 +27,12 @@ export function Team({ code, position, onChangeText }: Props) {
       <Input
         w={10}
         h={9}
+        editable={!hasGuess}
         textAlign="center"
         fontSize="xs"
         keyboardType="numeric"
         onChangeText={onChangeText}
+        defaultValue={String(teamPoints || '')}
       />
 
       {position === 'right' && (

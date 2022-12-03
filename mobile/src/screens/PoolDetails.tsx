@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Share } from 'react-native';
 import { HStack, useToast, VStack } from 'native-base';
 import { useRoute } from '@react-navigation/native';
 
@@ -10,7 +11,7 @@ import { api } from '../services/api';
 import { PoolHeader } from '../components/PoolHeader';
 import { EmptyMyPoolList } from '../components/EmptyMyPoolList';
 import { Option } from '../components/Option';
-import { Share } from 'react-native';
+import { Guesses } from '../components/Guesses';
 
 interface RouteParams {
   id: string;
@@ -89,6 +90,8 @@ export function PoolDetails() {
               onPress={() => setTabOptionSelected('ranking')}
             />
           </HStack>
+
+          <Guesses poolId={poolDetails.id} poolCode={poolDetails.code} />
         </VStack>
       ) : (
         <EmptyMyPoolList code={poolDetails.code} />
