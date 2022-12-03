@@ -1,17 +1,53 @@
-import { Icon, VStack } from 'native-base';
+import { useEffect, useState } from 'react';
+import { FlatList, Icon, useToast, VStack } from 'native-base';
 import { Octicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 
 import { Header } from '../components/Header';
 import { Button } from '../components/Button';
+import { Loading } from '../components/Loading';
+import { PoolCard } from '../components/PoolCard';
+import type { PoolCardPros } from '../components/PoolCard';
+
+import { api } from '../services/api';
 
 export function Pools() {
-  const navigation = useNavigation()
+  const [isLoading, setIsLoading] = useState(true);
+  const [pools, setPools] = useState<PoolCardPros[]>([]);
+
+  const toast = useToast();
+
+  const navigation = useNavigation();
 
   function navigateToFindPoolScreen() {
-    navigation.navigate('findPool')
+    navigation.navigate('findPool');
   }
-  
+
+  async function fetchPools() {
+    try {
+      setIsLoading(true);
+
+      const response = await api.get<{ pools: PoolCardPros[] }>('/pools');
+      console.log(response.data);
+
+      setPools(response.data.pools);
+    } catch (error) {
+      console.log(error);
+
+      toast.show({
+        title: 'Não foi possível carregar os bolões',
+        placement: 'top',
+        bgColor: 'red.500',
+      });
+    } finally {
+      setIsLoading(true);
+    }
+  }
+
+  useEffect(() => {
+    fetchPools();
+  }, []);
+
   return (
     <VStack flex="1" bg="gray.900">
       <Header title="Meus bolões" />
@@ -32,6 +68,15 @@ export function Pools() {
           onPress={navigateToFindPoolScreen}
         />
       </VStack>
+
+      <FlatList
+        data={pools}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <PoolCard data={item} />}
+        px="5"
+        showsVerticalScrollIndicator={false}
+        _contentContainerStyle={{ pb: 10 }}
+      />
     </VStack>
   );
 }
