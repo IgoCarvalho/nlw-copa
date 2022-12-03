@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { FlatList, Icon, useToast, VStack } from 'native-base';
 import { Octicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import { Header } from '../components/Header';
 import { Button } from '../components/Button';
 import { Loading } from '../components/Loading';
 import { PoolCard } from '../components/PoolCard';
-import type { PoolCardPros } from '../components/PoolCard';
+import { EmptyPoolList } from '../components/EmptyPoolList';
 
+import type { PoolCardPros } from '../components/PoolCard';
 import { api } from '../services/api';
 
 export function Pools() {
@@ -40,13 +41,15 @@ export function Pools() {
         bgColor: 'red.500',
       });
     } finally {
-      setIsLoading(true);
+      setIsLoading(false);
     }
   }
 
-  useEffect(() => {
-    fetchPools();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchPools();
+    }, [])
+  );
 
   return (
     <VStack flex="1" bg="gray.900">
@@ -56,6 +59,7 @@ export function Pools() {
         mx="5"
         mt="6"
         pb="4"
+        mb="4"
         borderBottomWidth="1"
         borderBottomColor="gray.600"
         alignItems="center"
@@ -69,14 +73,19 @@ export function Pools() {
         />
       </VStack>
 
-      <FlatList
-        data={pools}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <PoolCard data={item} />}
-        px="5"
-        showsVerticalScrollIndicator={false}
-        _contentContainerStyle={{ pb: 10 }}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={pools}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <PoolCard data={item} />}
+          px="5"
+          showsVerticalScrollIndicator={false}
+          _contentContainerStyle={{ pb: 10 }}
+          ListEmptyComponent={() => <EmptyPoolList />}
+        />
+      )}
     </VStack>
   );
 }
