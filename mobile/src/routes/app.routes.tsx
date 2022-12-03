@@ -6,6 +6,7 @@ import { useTheme } from 'native-base';
 import { NewPool } from '../screens/NewPool';
 import { Pools } from '../screens/Pools';
 import { FindPool } from '../screens/FindPool';
+import { PoolDetails } from '../screens/PoolDetails';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -39,7 +40,9 @@ export function AppRoutes() {
         name="newPool"
         component={NewPool}
         options={{
-          tabBarIcon: ({ color }) => <PlusCircle color={color} size={iconSize} />,
+          tabBarIcon: ({ color }) => (
+            <PlusCircle color={color} size={iconSize} />
+          ),
           tabBarLabel: 'Novo bolão',
         }}
       />
@@ -48,7 +51,9 @@ export function AppRoutes() {
         name="pools"
         component={Pools}
         options={{
-          tabBarIcon: ({ color }) => <SoccerBall color={color} size={iconSize} />,
+          tabBarIcon: ({ color }) => (
+            <SoccerBall color={color} size={iconSize} />
+          ),
           tabBarLabel: 'Meus bolões',
         }}
       />
@@ -56,6 +61,14 @@ export function AppRoutes() {
       <Screen
         name="findPool"
         component={FindPool}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+
+      <Screen
+        name="poolDetails"
+        component={PoolDetails}
         options={{
           tabBarButton: () => null,
         }}

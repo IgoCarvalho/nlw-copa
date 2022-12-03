@@ -8,9 +8,15 @@ interface Props {
   title: string;
   showBackButton?: boolean;
   showShareButton?: boolean;
+  onShare?: () => void;
 }
 
-export function Header({ title, showBackButton = false, showShareButton = false }: Props) {
+export function Header({
+  title,
+  showBackButton = false,
+  showShareButton = false,
+  onShare,
+}: Props) {
   const navigation = useNavigation();
 
   const EmptyBoxSpace = () => <Box w={6} h={6} />;
@@ -20,15 +26,35 @@ export function Header({ title, showBackButton = false, showShareButton = false 
   }
 
   return (
-    <HStack w="full" h={24} bgColor="gray.800" alignItems="flex-end" pb={5} px={5}>
+    <HStack
+      w="full"
+      h={24}
+      bgColor="gray.800"
+      alignItems="flex-end"
+      pb={5}
+      px={5}
+    >
       <HStack w="full" alignItems="center" justifyContent="space-between">
-        {showBackButton ? <ButtonIcon onPress={navigateToPoolsScreen} icon={CaretLeft} /> : <EmptyBoxSpace />}
+        {showBackButton ? (
+          <ButtonIcon onPress={navigateToPoolsScreen} icon={CaretLeft} />
+        ) : (
+          <EmptyBoxSpace />
+        )}
 
-        <Text color="white" fontFamily="medium" fontSize="md" textAlign="center">
+        <Text
+          color="white"
+          fontFamily="medium"
+          fontSize="md"
+          textAlign="center"
+        >
           {title}
         </Text>
 
-        {showShareButton ? <ButtonIcon icon={Export} /> : <EmptyBoxSpace />}
+        {showShareButton ? (
+          <ButtonIcon icon={Export} onPress={onShare} />
+        ) : (
+          <EmptyBoxSpace />
+        )}
       </HStack>
     </HStack>
   );

@@ -4,6 +4,7 @@ export declare global {
       newPool: undefined;
       pools: undefined;
       findPool: undefined;
+      poolDetails: { id: string };
     }
   }
 }
