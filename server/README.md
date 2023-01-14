@@ -2,17 +2,20 @@
 
 Projeto desenvolvido durante a Next Level Week Copa, consiste em uma aplicação para criar e participar de bolões da Copa do Mundo 2022.
 
-## 📸 Screenshots
+## 🎲 Diagrama ER
 
-![Applications Preview](../.github/desktop-preview.png)
+![Applications Preview](./prisma/ERD.svg)
 
 ## 🤖 Tecnologias utilizadas
 
 - [TypeScript](https://www.typescriptlang.org/)
-- [React](https://reactjs.org/)
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Axios](https://axios-http.com/)
+- [Node.js](https://nodejs.org/)
+- [Fastify](https://www.fastify.io/)
+- [Fastify Jwt](https://github.com/fastify/fastify-jwt/)
+- [Prisma](https://www.prisma.io/)
+- [Prisma ERD](https://github.com/keonik/prisma-erd-generator/)
+- [Zod](https://github.com/colinhacks/zod/)
+- [Dotenv](https://github.com/motdotla/dotenv/)
 
 ## 🚀 Como executar
 
@@ -25,13 +28,25 @@ git clone https://github.com/IgoCarvalho/nlw-copa.git
 Entre na pasta do projeto
 
 ```bash
-cd web
+cd server
 ```
 
 Instale as dependências
 
 ```bash
 npm install
+```
+
+Crie as variáveis de ambiente, basta copiar o arquivo de exemplo que vem com o projeto, ele já vem as variáveis definidas, mas você pode alterar caso queira
+
+```bash
+cp .env.example .env
+```
+
+Execute as `migrations` do banco de dados
+
+```bash
+npx prisma migrate dev
 ```
 
 Execute o projeto

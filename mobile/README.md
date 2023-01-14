@@ -4,14 +4,17 @@ Projeto desenvolvido durante a Next Level Week Copa, consiste em uma aplicação
 
 ## 📸 Screenshots
 
-![Applications Preview](../.github/desktop-preview.png)
+![Applications Preview](../.github/mobile-preview.png)
 
 ## 🤖 Tecnologias utilizadas
 
 - [TypeScript](https://www.typescriptlang.org/)
-- [React](https://reactjs.org/)
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.dev/)
+- [Native Base](https://nativebase.io/)
+- [Country List](https://github.com/umpirsky/country-list)
+- [DayJS](https://day.js.org/)
+- [Phosphor React Native](https://github.com/duongdev/phosphor-react-native)
 - [Axios](https://axios-http.com/)
 
 ## 🚀 Como executar
@@ -25,7 +28,7 @@ git clone https://github.com/IgoCarvalho/nlw-copa.git
 Entre na pasta do projeto
 
 ```bash
-cd web
+cd mobile
 ```
 
 Instale as dependências
@@ -37,7 +40,7 @@ npm install
 Execute o projeto
 
 ```bash
-npm run dev
+npm start
 ```
 
 Pronto 🎉
