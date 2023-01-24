@@ -4,7 +4,9 @@ Projeto desenvolvido durante a Next Level Week Copa, consiste em uma aplicação
 
 ## 🎲 Diagrama ER
 
-![Applications Preview](./prisma/ERD.svg)
+<div align="center">
+  <img src="./prisma/ERD.svg" alt="Diagrama ER" width="450" />
+</div>
 
 ## 🤖 Tecnologias utilizadas
 
